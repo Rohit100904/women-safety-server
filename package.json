@@ -1,0 +1,19 @@
+{
+  "name": "women-safety-server",
+  "version": "1.0.0",
+  "main": "server.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.6",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.1",
+    "firebase-admin": "^11.11.1",
+    "mongodb": "^5.9.2",
+    "mongoose": "^9.2.3"
+  }
+}
