@@ -843,6 +843,61 @@ app.post("/resolve", async (req, res) => {
 });
 
 /* ==========================================================
+                UPDATE LIVE LOCATION
+========================================================== */
+
+app.post("/updateLocation", async (req, res) => {
+
+    try {
+
+        const { username, lat, lon } = req.body;
+
+        if (
+            !username ||
+            lat === undefined ||
+            lon === undefined
+        ) {
+            return res.status(400).json({
+                error: "Missing location data"
+            });
+        }
+
+        const user = await User.findOne({ username });
+
+        if (!user) {
+            return res.status(404).json({
+                error: "User not found"
+            });
+        }
+
+        // Update only the latest location
+        user.lastLocation = {
+            lat,
+            lon
+        };
+
+        user.lastSeen = new Date();
+
+        await user.save();
+
+        res.json({
+            success: true,
+            message: "Location updated"
+        });
+
+    } catch (err) {
+
+        console.log("Update Location Error:", err);
+
+        res.status(500).json({
+            error: "Failed to update location"
+        });
+
+    }
+
+});
+
+/* ==========================================================
                     LIVE LOCATION
 ========================================================== */
 
